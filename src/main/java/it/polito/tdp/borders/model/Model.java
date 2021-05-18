@@ -9,7 +9,6 @@ import org.jgrapht.event.EdgeTraversalEvent;
 import org.jgrapht.event.TraversalListener;
 import org.jgrapht.event.VertexTraversalEvent;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import org.jgrapht.traverse.BreadthFirstIterator;
 
@@ -23,7 +22,7 @@ public class Model {
 	private BordersDAO dao = new  BordersDAO();
 	private Map<Integer,Country> idMap;
 	private SimpleWeightedGraph<Country, DefaultEdge> grafo;
-	private SimpleWeightedGraph<Country, DefaultEdge> grafo2;
+	//private SimpleWeightedGraph<Country, DefaultEdge> grafo2;
 	private List<Border> confini;
 	private ConnectivityInspector<Country,DefaultEdge> conn;
 	private Map<Country, Country> visita;
@@ -47,7 +46,7 @@ public class Model {
 		}
 	}
 	}
-	public void creaGrafoSenzaAnno() {
+	/*public void creaGrafoSenzaAnno() {
 		grafo2 = new SimpleWeightedGraph<>(DefaultEdge.class);
 		//aggiungo vertici "filtrati"
 		Graphs.addAllVertices(grafo2, dao.getVerticiSenzaAnno(idMap));
@@ -59,6 +58,7 @@ public class Model {
 		}
 	}
 	}
+	*/
 	public String grado() {
 		String s="COMPONENTI CONNESSE: "+conn.connectedSets().size()+"\n";
 		for(Country cc:grafo.vertexSet()) {
@@ -76,7 +76,7 @@ public class Model {
 	public Set<Country> trovaNazioni(Country c1){
 		
 		BreadthFirstIterator<Country, DefaultEdge> it 
-								= new BreadthFirstIterator<>(grafo2, c1);
+								= new BreadthFirstIterator<>(grafo, c1);
 		visita = new HashMap<>();
 		visita.put(c1, null);
 		
@@ -84,8 +84,8 @@ public class Model {
 
 			@Override
 			public void edgeTraversed(EdgeTraversalEvent<DefaultEdge> e) {
-				Country nazione1 = grafo2.getEdgeSource(e.getEdge());
-				Country nazione2 = grafo2.getEdgeTarget(e.getEdge());
+				Country nazione1 = grafo.getEdgeSource(e.getEdge());
+				Country nazione2 = grafo.getEdgeTarget(e.getEdge());
 				
 				
 				

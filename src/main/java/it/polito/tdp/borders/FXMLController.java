@@ -63,7 +63,7 @@ public class FXMLController {
     		txtResult.appendText("Selezionare nazione");
     		return;
     	}
-    	model.creaGrafoSenzaAnno();
+    	//model.creaGrafoSenzaAnno();
     	HashSet<Country> risultato=(HashSet<Country>) model.trovaNazioni(nazione);
     	if (risultato==null){
     			txtResult.appendText("Nessun confine");
